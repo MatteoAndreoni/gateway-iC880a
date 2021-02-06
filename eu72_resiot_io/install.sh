@@ -19,10 +19,10 @@ echo "ResIOT installer - $VERSION Version"
 echo "Gateway configuration:"
 
 # Try to get gateway ID from MAC address
-# First try eth0, if that does not exist, try wlan0 (for RPi Zero)
-GATEWAY_EUI_NIC="eth0"
+# First try wlan0, if that does not exist, try eth0
+GATEWAY_EUI_NIC="wlan0"
 if [[ `grep "$GATEWAY_EUI_NIC" /proc/net/dev` == "" ]]; then
-    GATEWAY_EUI_NIC="wlan0"
+    GATEWAY_EUI_NIC="eth0"
 fi
 
 if [[ `grep "$GATEWAY_EUI_NIC" /proc/net/dev` == "" ]]; then
@@ -102,9 +102,9 @@ popd
 if [ ! -d ic880a_packet_forwarder ]; then
     #git clone https://github.com/resiot/ic880a_packet_forwarder
     git clone https://github.com/Lora-net/packet_forwarder
-    pushd ic880a_packet_forwarder
+    pushd packet_forwarder
 else
-    pushd ic880a_packet_forwarder
+    pushd packet_forwarder
     git pull
     git reset --hard
 fi
@@ -116,7 +116,7 @@ popd
 # Symlink poly packet forwarder
 if [ ! -d bin ]; then mkdir bin; fi
 if [ -f ./bin/poly_pkt_fwd ]; then rm ./bin/poly_pkt_fwd; fi
-ln -s $INSTALL_DIR/ic880a_packet_forwarder/poly_pkt_fwd/poly_pkt_fwd ./bin/resiot_pkt_fwd
+ln -s $INSTALL_DIR/packet_forwarder/lora_pkt_fwd/lora_pkt_fwd ./bin/resiot_pkt_fwd
 
 LOCAL_CONFIG_FILE=$INSTALL_DIR/bin/local_conf.json
 
