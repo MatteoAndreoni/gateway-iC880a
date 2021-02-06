@@ -115,7 +115,7 @@ popd
 
 # Symlink poly packet forwarder
 if [ ! -d bin ]; then mkdir bin; fi
-if [ -f ./bin/poly_pkt_fwd ]; then rm ./bin/poly_pkt_fwd; fi
+if [ -f ./bin/resiot_pkt_fwd ]; then rm ./bin/resiot_pkt_fwd; fi
 ln -s $INSTALL_DIR/packet_forwarder/lora_pkt_fwd/lora_pkt_fwd ./bin/resiot_pkt_fwd
 
 LOCAL_CONFIG_FILE=$INSTALL_DIR/bin/local_conf.json
